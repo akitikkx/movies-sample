@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -5,6 +8,9 @@ plugins {
 
     id("kotlin-kapt")
 }
+
+val localProperties = Properties()
+localProperties.load(FileInputStream(rootProject.file("local.properties")))
 
 android {
     namespace = "com.example.moviessample"
@@ -29,6 +35,19 @@ android {
             )
         }
     }
+
+    buildTypes.forEach {
+        it.buildConfigField(
+            "String",
+            "TRAKT_CLIENT_ID",
+            localProperties.getProperty("TraktClientID")
+        )
+    }
+
+    buildFeatures {
+        buildConfig = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
