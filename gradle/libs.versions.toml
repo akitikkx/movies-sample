@@ -1,22 +1,43 @@
 [versions]
+activityCompose = "1.9.3"
 agp = "8.7.1"
+composeBom = "2024.10.00"
+converterGson = "2.11.0"
+hiltAndroid = "2.52"
+hiltAndroidCompiler = "2.44"
+hiltAndroidGradle = "2.51.1"
+hiltNavigationCompose = "1.2.0"
 kotlin = "1.9.24"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-appcompat = "1.7.0"
-material = "1.12.0"
+lifecycleRuntimeKtx = "2.8.6"
+retrofit = "2.11.0"
 
 [libraries]
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
+androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-material3 = { module = "androidx.compose.material3:material3" }
+androidx-ui = { module = "androidx.compose.ui:ui" }
+androidx-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
+androidx-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
+androidx-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+hilt-android-gradle-plugin = {id = "com.google.dagger.hilt.android", version.ref = "hiltAndroidGradle" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
