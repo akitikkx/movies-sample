@@ -4,10 +4,10 @@ agp = "8.7.1"
 composeBom = "2024.10.00"
 converterGson = "2.11.0"
 hiltAndroid = "2.52"
-hiltAndroidCompiler = "2.44"
-hiltAndroidGradle = "2.51.1"
+hiltAndroidCompiler = "2.52"
+hiltAndroidGradle = "2.52"
 hiltNavigationCompose = "1.2.0"
-kotlin = "1.9.24"
+kotlin = "2.0.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -38,6 +38,7 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 hilt-android-gradle-plugin = {id = "com.google.dagger.hilt.android", version.ref = "hiltAndroidGradle" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
