@@ -82,6 +82,10 @@ dependencies {
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
+    // OkHttp
+    implementation(libs.okhttp3)
+    implementation(libs.okhttp3.logging.interceptor)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
