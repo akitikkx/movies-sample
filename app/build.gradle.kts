@@ -42,6 +42,11 @@ android {
             "TRAKT_CLIENT_ID",
             localProperties.getProperty("TraktClientID")
         )
+        it.buildConfigField(
+            "String",
+            "TMDB_ACCESS_TOKEN",
+            localProperties.getProperty("TmdbAccessToken")
+        )
     }
 
     buildFeatures {

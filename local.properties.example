@@ -8,3 +8,4 @@
 
 sdk.dir=path/to/Android/SDK
 TraktClientID="<YOUR CLIENT ID HERE>"
+TmdbAccessToken="<YOUR CLIENT ID HERE>"
