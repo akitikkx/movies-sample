@@ -45,7 +45,7 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideTmdbApiService(okHttpClient: OkHttpClient): TmdbApiService {
-        okHttpClient.newBuilder()
+        val client = okHttpClient.newBuilder()
             .addInterceptor(
                 object : Interceptor {
                     override fun intercept(chain: Interceptor.Chain): Response {
@@ -62,7 +62,7 @@ object NetworkModule {
 
         return Retrofit.Builder()
             .baseUrl(TMDB_BASE_URL)
-            .client(okHttpClient)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(TmdbApiService::class.java)
