@@ -6,5 +6,5 @@ import retrofit2.http.GET
 interface TraktApiService {
 
     @GET("movies/boxoffice")
-    suspend fun getBoxOfficeMovies(): Result<BoxOfficeResponse>
+    suspend fun getBoxOfficeMovies(): BoxOfficeResponse
 }
