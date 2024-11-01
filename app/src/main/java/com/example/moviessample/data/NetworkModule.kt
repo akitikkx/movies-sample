@@ -29,7 +29,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideTraktClient(@ApplicationContext context: Context) : OkHttpClient {
+    fun provideOkhttpClient(@ApplicationContext context: Context): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
@@ -44,37 +44,25 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideTmdbNetworkClient(@ApplicationContext context: Context) : OkHttpClient {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-
-        return OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
+    fun provideTmdbApiService(okHttpClient: OkHttpClient): TmdbApiService {
+        okHttpClient.newBuilder()
             .addInterceptor(
                 object : Interceptor {
                     override fun intercept(chain: Interceptor.Chain): Response {
                         val request: Request = chain.request()
                             .newBuilder()
                             .header("accept", "application/json")
-                            .header("Authorization", BuildConfig.TMDB_ACCESS_TOKEN)
+                            .header("Authorization", "Bearer ${BuildConfig.TMDB_ACCESS_TOKEN}")
                             .build()
                         return chain.proceed(request)
                     }
                 }
             )
-            .cache(Cache(context.cacheDir, (5 * 1024 * 1024).toLong()))
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .connectionPool(ConnectionPool(0, 1, TimeUnit.SECONDS))
             .build()
-    }
 
-    @Singleton
-    @Provides
-    fun provideTmdbApiService(tmdbNetworkClient: OkHttpClient): TmdbApiService {
         return Retrofit.Builder()
             .baseUrl(TMDB_BASE_URL)
-            .client(tmdbNetworkClient)
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(TmdbApiService::class.java)
@@ -82,10 +70,10 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideTraktApiService(traktNetworkClient: OkHttpClient): TraktApiService {
+    fun provideTraktApiService(okHttpClient: OkHttpClient): TraktApiService {
         return Retrofit.Builder()
             .baseUrl(TRAKT_BASE_URL)
-            .client(traktNetworkClient)
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(TraktApiService::class.java)
