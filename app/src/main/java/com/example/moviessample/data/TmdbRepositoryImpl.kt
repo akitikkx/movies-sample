@@ -18,9 +18,13 @@ class TmdbRepositoryImpl @Inject constructor(
         val result = withContext(Dispatchers.IO) {
             try {
                 val details = tmdbApiService.getDetails(movieId)
+                val posterPath = details.poster_path.takeIf { it.isNotEmpty() }?.let {
+                    "https://image.tmdb.org/t/p/original$it"
+                }
+
                 val movieDetails = MovieDetails(
                     id = details.id,
-                    posterPath = details.poster_path,
+                    posterPath = posterPath,
                     overview = details.overview,
                     tagline = details.tagline
                 )
