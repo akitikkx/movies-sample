@@ -10,6 +10,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flow
@@ -24,7 +26,7 @@ class BoxOfficeViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<BoxOfficeUiState>(BoxOfficeUiState.Loading)
-    val uiState: StateFlow<BoxOfficeUiState> = _uiState
+    val uiState: StateFlow<BoxOfficeUiState> = _uiState.asStateFlow()
 
     init {
         fetchMovies()
@@ -63,7 +65,8 @@ class BoxOfficeViewModel @Inject constructor(
                         is Result.Failure -> flow { emit(emptyList<BoxOfficeMovie>()) }
                         else -> flow { emit(emptyList<BoxOfficeMovie>()) }
                     }
-
+                }.catch { exception ->
+                    _uiState.value = BoxOfficeUiState.Error(exception.message.toString())
                 }
                 .collect { boxOfficeMovies ->
                     _uiState.value = BoxOfficeUiState.Success(boxOfficeMovies)
