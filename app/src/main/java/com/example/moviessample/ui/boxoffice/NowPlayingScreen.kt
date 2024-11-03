@@ -1,4 +1,4 @@
-package com.example.moviessample.ui.theme.boxoffice
+package com.example.moviessample.ui.boxoffice
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

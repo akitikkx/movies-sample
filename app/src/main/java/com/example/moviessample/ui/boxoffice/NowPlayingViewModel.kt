@@ -1,10 +1,9 @@
-package com.example.moviessample.ui.theme.boxoffice
+package com.example.moviessample.ui.boxoffice
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviessample.data.TmdbRepository
 import com.example.moviessample.data.util.Result
-import com.example.moviessample.domain.toBoxOfficeMovie
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted

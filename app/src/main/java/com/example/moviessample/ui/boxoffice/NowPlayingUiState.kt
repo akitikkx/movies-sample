@@ -1,4 +1,4 @@
-package com.example.moviessample.ui.theme.boxoffice
+package com.example.moviessample.ui.boxoffice
 
 import com.example.moviessample.domain.Movie
 
