@@ -1,8 +1,7 @@
 package com.example.moviessample.domain
 
-data class BoxOfficeMovie(
+data class Movie(
     val title: String,
-    val year: Int,
     val id: Int? = null,
     val overview: String? = null,
     val posterPath: String? = null,

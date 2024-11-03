@@ -7,5 +7,4 @@
 #Wed Nov 04 19:57:53 SAST 2020
 
 sdk.dir=path/to/Android/SDK
-TraktClientID="<YOUR CLIENT ID HERE>"
 TmdbAccessToken="<YOUR CLIENT ID HERE>"

@@ -18,13 +18,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.moviessample.domain.BoxOfficeMovie
+import com.example.moviessample.domain.Movie
 
 @Composable
-fun BoxOfficeScreen(
-    viewModel: BoxOfficeViewModel = hiltViewModel()
+fun NowPlayingScreen(
+    viewModel: NowPlayingViewModel = hiltViewModel()
 ) {
-    val uiState: BoxOfficeUiState by viewModel.uiState.collectAsState()
+    val uiState: NowPlayingUiState by viewModel.uiState.collectAsState()
 
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         Box(
@@ -33,18 +33,18 @@ fun BoxOfficeScreen(
                 .fillMaxSize()
         ) {
             when (uiState) {
-                is BoxOfficeUiState.Loading -> {
+                is NowPlayingUiState.Loading -> {
                     LoadingScreen()
                 }
 
-                is BoxOfficeUiState.Success -> {
-                    BoxOfficesMovies(
-                        list = (uiState as BoxOfficeUiState.Success).movies,
+                is NowPlayingUiState.Success -> {
+                    NowPlayingMovies(
+                        list = (uiState as NowPlayingUiState.Success).movies,
                     )
                 }
 
-                is BoxOfficeUiState.Error -> {
-                    ErrorScreen(message = (uiState as BoxOfficeUiState.Error).message)
+                is NowPlayingUiState.Error -> {
+                    ErrorScreen(message = (uiState as NowPlayingUiState.Error).message)
                 }
             }
         }
@@ -65,16 +65,17 @@ fun LoadingScreen() {
 }
 
 @Composable
-fun BoxOfficesMovies(
-    list: List<BoxOfficeMovie>
+fun NowPlayingMovies(
+    list: List<Movie>
 ) {
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(3),
         verticalItemSpacing = 4.dp,
         horizontalArrangement = Arrangement.spacedBy(4.dp),
+        modifier = Modifier.padding(start = 8.dp, end = 8.dp),
         content = {
             items(list) { movie ->
-                BoxOfficeCard(movie = movie)
+                NowPlayingItemCard(movie = movie)
             }
         }
     )

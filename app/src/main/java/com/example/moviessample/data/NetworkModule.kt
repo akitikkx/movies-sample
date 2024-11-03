@@ -23,8 +23,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    private const val TRAKT_BASE_URL = "https://api.trakt.tv/"
-
     private const val TMDB_BASE_URL = "https://api.themoviedb.org/3/"
 
     @Singleton
@@ -66,16 +64,5 @@ object NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(TmdbApiService::class.java)
-    }
-
-    @Singleton
-    @Provides
-    fun provideTraktApiService(okHttpClient: OkHttpClient): TraktApiService {
-        return Retrofit.Builder()
-            .baseUrl(TRAKT_BASE_URL)
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(TraktApiService::class.java)
     }
 }

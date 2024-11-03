@@ -1,13 +1,10 @@
 package com.example.moviessample.data
 
-import com.example.moviessample.data.models.tmdb.MovieDetailsResponse
+import com.example.moviessample.data.models.tmdb.NowPlayingResponse
 import retrofit2.http.GET
-import retrofit2.http.Path
 
 interface TmdbApiService {
 
-    @GET("movie/{movieId}")
-    suspend fun getDetails(
-        @Path("movieId") movieId: Int,
-    ): MovieDetailsResponse
+    @GET("discover/movie")
+    suspend fun getNowPlayingList(): NowPlayingResponse
 }

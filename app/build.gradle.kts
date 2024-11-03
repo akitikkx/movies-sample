@@ -39,11 +39,6 @@ android {
     buildTypes.forEach {
         it.buildConfigField(
             "String",
-            "TRAKT_CLIENT_ID",
-            localProperties.getProperty("TraktClientID")
-        )
-        it.buildConfigField(
-            "String",
             "TMDB_ACCESS_TOKEN",
             localProperties.getProperty("TmdbAccessToken")
         )

@@ -10,9 +10,6 @@ import dagger.hilt.components.SingletonComponent
 abstract class RepositoryModule {
 
     @Binds
-    internal abstract fun bindTraktRepository(traktRepository: TraktRepositoryImpl): TraktRepository
-
-    @Binds
     internal abstract fun bindTmdbRepository(tmdbRepository: TmdbRepositoryImpl): TmdbRepository
 
 }
