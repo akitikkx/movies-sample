@@ -89,7 +89,13 @@ dependencies {
     // Coil
     implementation(libs.coil)
 
+    // Navigation
+    implementation(libs.compose.destinations.core)
+    ksp(libs.compose.destinations.compiler)
+
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
