@@ -9,10 +9,11 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flatMapConcat
+
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.transformLatest
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,25 +25,24 @@ class NowPlayingViewModel @Inject constructor(
     val uiState: StateFlow<NowPlayingUiState> = flow {
         emit(tmdbRepository.getNowPlayingList())
     }
-        // flatMapConcat used to "unwrap" the flow emitted from their inner block and continue with
-        // the rest of the transformations
-        .flatMapConcat { nowPlayingFlow ->
+        .transformLatest { nowPlayingFlow ->
             nowPlayingFlow
                 .map { result ->
                     when (result) {
-                        is Result.Loading -> NowPlayingUiState.Loading
-
-                        is Result.Success -> NowPlayingUiState.Success(result.data.map { it })
+                        is Result.Success -> NowPlayingUiState.Success(result.data)
 
                         is Result.Failure -> NowPlayingUiState.Error(
-                            "Failed to fetch movies: " +
-                                    "${result.exception.message}"
+                            "Failed to fetch movies: ${result.exception.message}"
                         )
+
+                        is Result.Loading -> NowPlayingUiState.Loading
                     }
                 }
                 .catch { exception ->
                     emit(NowPlayingUiState.Error("An unexpected error occurred: ${exception.message}"))
                 }
+                // collect and emit transformed states
+                .collect { emit(it) }
         }
         .stateIn(
             scope = viewModelScope,
