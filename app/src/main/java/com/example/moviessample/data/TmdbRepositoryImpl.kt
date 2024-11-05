@@ -1,8 +1,8 @@
 package com.example.moviessample.data
 
+import com.example.moviessample.data.models.tmdb.toMovie
 import com.example.moviessample.data.util.Result
 import com.example.moviessample.domain.Movie
-import com.example.moviessample.domain.MovieDetails
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,22 +14,13 @@ class TmdbRepositoryImpl @Inject constructor(
     private val tmdbApiService: TmdbApiService
 ) : TmdbRepository {
 
-    override suspend fun getNowPlayingList(): Flow<Result<List<Movie>>>  = flow {
+    override suspend fun getNowPlayingList(): Flow<Result<List<Movie>>> = flow {
         emit(Result.Loading)
         val result = withContext(Dispatchers.IO) {
             try {
                 val nowPlayResponse = tmdbApiService.getNowPlayingList()
                 val nowPlayingList: List<Movie> = nowPlayResponse.results.map { details ->
-
-                    val posterPath = details.poster_path.takeIf { it.isNotEmpty() }?.let {
-                        "https://image.tmdb.org/t/p/original$it"
-                    }
-                    Movie(
-                        id = details.id,
-                        posterPath = posterPath,
-                        overview = details.overview,
-                        title = details.title,
-                    )
+                    details.toMovie()
                 }
                 Result.Success(nowPlayingList)
 
